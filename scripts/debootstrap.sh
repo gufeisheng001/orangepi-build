@@ -346,6 +346,7 @@ create_rootfs_cache()
 		fi
 
 		install_docker
+		[[ ${BOARDFAMILY} == "starfive2" ]] && jh7110_install_libs
 
 		# Remove packages from packages.uninstall
 
@@ -458,7 +459,7 @@ prepare_partitions() {
 	# parttype[nfs] is empty
 
 	# metadata_csum and 64bit may need to be disabled explicitly when migrating to newer supported host OS releases
-	if [[ $HOSTRELEASE =~ buster|bullseye|bookworm|bionic|focal|jammy|kinetic|sid ]]; then
+	if [[ $HOSTRELEASE =~ buster|bullseye|bookworm|bionic|focal|jammy|noble|kinetic|sid ]]; then
 		mkopts[ext4]="-q -m 2 -O ^64bit,^metadata_csum"
 	fi
 	# mkopts[fat] is empty
